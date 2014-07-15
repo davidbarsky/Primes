@@ -295,8 +295,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>64</real>
-							<real>64</real>
+							<real>60</real>
+							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -332,9 +332,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.96078431606292725</real>
-							<real>0.96470588445663452</real>
-							<real>0.93333333730697632</real>
+							<real>0.86376041173934937</real>
+							<real>0.41045284271240234</real>
+							<real>0.90223217010498047</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -388,8 +388,8 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>64</real>
-					<real>64</real>
+					<real>60</real>
+					<real>60</real>
 					<integer>0</integer>
 					<integer>0</integer>
 				</array>
