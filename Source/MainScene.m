@@ -10,9 +10,9 @@
 #import "Grid.h"
 
 @implementation MainScene {
-    Grid *_grid;
-    CCLabelTTF *_scoreLabel;
-    CCLabelTTF *_highScoreLabel;
+	Grid *_grid;
+	CCLabelTTF *_scoreLabel;
+	CCLabelTTF *_highscoreLabel;
 }
 
 @end
