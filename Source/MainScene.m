@@ -12,7 +12,7 @@
 @implementation MainScene {
 	Grid *_grid;
 	CCLabelTTF *_scoreLabel;
-	CCLabelTTF *_highscoreLabel;
+	CCLabelTTF *_highScoreLabel;
 }
 
 @end

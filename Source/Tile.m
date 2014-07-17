@@ -13,12 +13,21 @@
     CCNodeColor *_backgroundNode;
 }
 
+- (void)didLoadFromCCB {
+    [self updateValueDisplay];
+}
+
 - (id)init {
     if (self = [super init]) {
         // activates touches
         self.userInteractionEnabled = TRUE;
+        self.value = (arc4random()%34);
     }
     return self;
+}
+
+- (void)updateValueDisplay {
+    _valueLabel.string = [NSString stringWithFormat:@"%d", self.value];
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
