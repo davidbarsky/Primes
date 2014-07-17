@@ -91,7 +91,6 @@ static const NSInteger START_TILES = 25;
 - (void)spawnStartTiles {
     for (int i = 0; i < START_TILES; i++) {
         [self spawnRandomTile];
-        NSLog(@"Tile Spawned!");
     }
 }
 
