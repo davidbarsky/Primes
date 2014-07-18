@@ -7,10 +7,16 @@
 //
 
 #import "CCNode.h"
+#import "Grid.h"
 
 @interface Tile : CCNode
 
-@property (nonatomic, assign) NSInteger value;
--(void)updateValueDisplay;
+@property (nonatomic, strong) NSNumber *value;
+
+// to access *value, use 'self.value.intValue'
+
+@property (nonatomic, copy) Grid *gridReference;
+
+- (void)updateValueDisplay;
 
 @end

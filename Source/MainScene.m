@@ -11,8 +11,8 @@
 
 @implementation MainScene {
 	Grid *_grid;
-	CCLabelTTF *_scoreLabel;
-	CCLabelTTF *_highScoreLabel;
+	CCLabelTTF *_currentSumLabel;
+	CCLabelTTF *_goalLabel;
 }
 
 @end

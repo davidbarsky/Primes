@@ -238,8 +238,6 @@
 						<real>1</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -311,7 +309,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Score</string>
+							<string>Current</string>
 							<false/>
 						</array>
 					</dict>
@@ -473,7 +471,7 @@
 				<key>displayName</key>
 				<string>scoreDisplay</string>
 				<key>memberVarAssignmentName</key>
-				<string>_scoreLabel</string>
+				<string>_currentSumLabel</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -680,6 +678,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -913,7 +913,7 @@
 				<key>displayName</key>
 				<string>goalDisplay</string>
 				<key>memberVarAssignmentName</key>
-				<string>_highScoreLabel</string>
+				<string>_goalLabel</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -933,7 +933,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>295</real>
+							<real>292</real>
 							<real>516</real>
 							<integer>0</integer>
 							<integer>0</integer>

@@ -18,6 +18,8 @@
     NSNull *_noTile;
 }
 
+@synthesize tileValuesToCombine = _tileValuesToCombine;
+
 #pragma mark - Constants
 
 static const NSInteger GRID_SIZE = 5;
@@ -25,7 +27,9 @@ static const NSInteger START_TILES = 25;
 
 - (void)didLoadFromCCB {
 	[self setupBackground];
-	
+    
+    self.tileValuesToCombine = [NSMutableArray alloc];
+    
     _noTile = [NSNull null];
 	_gridArray = [NSMutableArray array];
 	for (int i = 0; i < GRID_SIZE; i++) {
@@ -42,7 +46,7 @@ static const NSInteger START_TILES = 25;
 
 - (void)setupBackground {
     // load tile to read dimenions. Remember, you never declared size of the tiles.
-	CCNode *tile = [CCBReader load:@"Tile"];
+	CCNode *tile = [CCBReader load:@"Tile" owner:self];
 	_columnWidth = tile.contentSize.width;
 	_columnHeight = tile.contentSize.height;
     
@@ -70,6 +74,21 @@ static const NSInteger START_TILES = 25;
 		}
 		y += _columnHeight + _tileMarginVertical;
 	}
+}
+
+# pragma mark - Gameplay
+
+// gets values from array, and combines them.
+//TODO: add support for additional operators.
+- (void)addTileValues {
+    
+    for (int i = 0; i < [_tileValuesToCombine count]; i++) {
+        NSInteger value = [_tileValuesToCombine objectAtIndex:i];
+        self.currentSum += value;
+    }
+ 
+    // clears for next move
+    [_tileValuesToCombine removeAllObjects];
 }
 
 # pragma mark - Tile Spawners

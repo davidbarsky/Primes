@@ -13,6 +13,8 @@
     CCNodeColor *_backgroundNode;
 }
 
+@synthesize gridReference = _gridReference;
+
 - (void)didLoadFromCCB {
     [self updateValueDisplay];
 }
@@ -21,17 +23,17 @@
     if (self = [super init]) {
         // activates touches
         self.userInteractionEnabled = TRUE;
-        self.value = (arc4random()%34);
+        self.value = [NSNumber numberWithUnsignedInt:arc4random()%34];
     }
     return self;
 }
 
 - (void)updateValueDisplay {
-    _valueLabel.string = [NSString stringWithFormat:@"%d", self.value];
+    _valueLabel.string = [NSString stringWithFormat:@"%ld", (long)self.value];
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    NSLog(@"Tile was touched!");
+    [self.gridReference.tileValuesToCombine addObject:self.value];
 }
 
 @end
