@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) NSInteger currentSum;
 @property (nonatomic, assign) NSInteger goal;
+@property (nonatomic, assign) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine;
 
 @end

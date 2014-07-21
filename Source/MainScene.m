@@ -11,8 +11,26 @@
 
 @implementation MainScene {
 	Grid *_grid;
-	CCLabelTTF *_currentSumLabel;
-	CCLabelTTF *_goalLabel;
+    // score labels in top
+	CCLabelTTF *_roundScoreLabel;
+	CCLabelTTF *_roundGoalLabel;
+    
+    // label that updates whenever
+    CCLabelTTF *_gameplayScoreLabel;
+}
+
+- (void)didLoadFromCCB {
+    [_grid addObserver:self forKeyPath:@"score" options:0 context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"score"]) {
+        _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.score];
+    }
+}
+
+- (void)dealloc {
+    [_grid removeObserver:self forKeyPath:@"score"];
 }
 
 @end

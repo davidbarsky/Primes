@@ -29,11 +29,13 @@
 }
 
 - (void)updateValueDisplay {
-    _valueLabel.string = [NSString stringWithFormat:@"%ld", (long)self.value];
+    //TODO: sort out this isssue
+    _valueLabel.string = [NSString stringWithFormat:@"%d", self.value.intValue];
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     [self.gridReference.tileValuesToCombine addObject:self.value];
+    NSLog(@"%@", self.value);
 }
 
 @end

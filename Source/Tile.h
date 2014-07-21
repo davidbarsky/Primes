@@ -11,9 +11,11 @@
 
 @interface Tile : CCNode
 
-@property (nonatomic, strong) NSNumber *value;
-
 // to access *value, use 'self.value.intValue'
+// value is being used to access
+@property (nonatomic, strong) NSNumber* value;
+
+@property (nonatomic, assign) BOOL mergedThisRound;
 
 @property (nonatomic, copy) Grid *gridReference;
 

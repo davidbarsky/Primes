@@ -50,7 +50,7 @@ static const NSInteger START_TILES = 25;
 	_columnWidth = tile.contentSize.width;
 	_columnHeight = tile.contentSize.height;
     
-    // hotfix
+        // hotfix
         [tile performSelector:@selector(cleanup)];
     
     _tileMarginHorizontal = (self.contentSize.width - (GRID_SIZE * _columnWidth)) / (GRID_SIZE+1);
@@ -83,10 +83,10 @@ static const NSInteger START_TILES = 25;
 - (void)addTileValues {
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
-        NSInteger value = [_tileValuesToCombine objectAtIndex:i];
-        self.currentSum += value;
+        NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
+        self.score += [value integerValue];
     }
- 
+    
     // clears for next move
     [_tileValuesToCombine removeAllObjects];
 }
