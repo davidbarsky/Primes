@@ -27,8 +27,7 @@ static const NSInteger START_TILES = 25;
 
 - (void)didLoadFromCCB {
 	[self setupBackground];
-    
-    self.tileValuesToCombine = [NSMutableArray alloc];
+    self.tileValuesToCombine = [NSMutableArray array];
     
     _noTile = [NSNull null];
 	_gridArray = [NSMutableArray array];
@@ -46,7 +45,8 @@ static const NSInteger START_TILES = 25;
 
 - (void)setupBackground {
     // load tile to read dimenions. Remember, you never declared size of the tiles.
-	CCNode *tile = [CCBReader load:@"Tile" owner:self];
+	Tile *tile = (Tile*)[CCBReader load:@"Tile"];
+    tile.gridReference = self;
 	_columnWidth = tile.contentSize.width;
 	_columnHeight = tile.contentSize.height;
     
@@ -115,6 +115,7 @@ static const NSInteger START_TILES = 25;
 
 - (void)addTileAtColumn:(NSInteger)column row:(NSInteger)row {
 	Tile *tile = (Tile*) [CCBReader load:@"Tile"];
+    tile.gridReference = self;
 	_gridArray[column][row] = tile;
 	tile.scale = 0.f;
 	[self addChild:tile];

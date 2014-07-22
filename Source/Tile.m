@@ -13,8 +13,6 @@
     CCNodeColor *_backgroundNode;
 }
 
-@synthesize gridReference = _gridReference;
-
 - (void)didLoadFromCCB {
     [self updateValueDisplay];
 }
@@ -23,7 +21,7 @@
     if (self = [super init]) {
         // activates touches
         self.userInteractionEnabled = TRUE;
-        self.value = [NSNumber numberWithUnsignedInt:arc4random()%34];
+        self.value = [NSNumber numberWithUnsignedInt:arc4random()%10];
     }
     return self;
 }
@@ -36,6 +34,7 @@
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     [self.gridReference.tileValuesToCombine addObject:self.value];
     NSLog(@"%@", self.value);
+    NSLog(@"%@", _gridReference.tileValuesToCombine);
 }
 
 @end
