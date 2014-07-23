@@ -34,7 +34,6 @@
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     [self.gridReference.tileValuesToCombine addObject:self.value];
     NSLog(@"%@", self.value);
-    NSLog(@"%@", _gridReference.tileValuesToCombine);
 }
 
 @end

@@ -82,13 +82,12 @@ static const NSInteger START_TILES = 25;
 //TODO: add support for additional operators.
 - (void)addTileValues {
     
+    NSLog(@"%@", _tileValuesToCombine);
+    
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         self.score += [value integerValue];
     }
-    
-    // clears for next move
-    [_tileValuesToCombine removeAllObjects];
 }
 
 # pragma mark - Tile Spawners
