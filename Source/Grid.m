@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Apportable. All rights reserved.
 //
 
+#import "MainScene.h"
 #import "Grid.h"
 #import "Tile.h"
+#import "GameEnd.h"
 
 @implementation Grid {
 	CGFloat _columnWidth;
@@ -16,9 +18,6 @@
 	CGFloat _tileMarginHorizontal;
     NSMutableArray *_gridArray;
     NSNull *_noTile;
-    
-    // Labels
-    CCLabelTTF *_roundScoreLabel;
 }
 
 @synthesize tileValuesToCombine = _tileValuesToCombine;
@@ -29,7 +28,9 @@ static const NSInteger START_TILES = 25;
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
-	[self setupBackground];
+	// initializations
+    
+    [self setupBackground];
     self.tileValuesToCombine = [NSMutableArray array];
     self.score = 0;
     
@@ -41,8 +42,8 @@ static const NSInteger START_TILES = 25;
 			_gridArray[i][j] = _noTile;
 		}
 	}
-    [self setGoal:[NSNumber numberWithUnsignedInt:arc4random()%10]];
-    _roundScoreLabel.string = [NSString stringWithFormat:@"%d", self.goal.intValue];
+//    [self.mScene setMatchGoal:10];
+    self.goal = 10;
     [self spawnStartTiles];
 }
 
@@ -79,9 +80,12 @@ static const NSInteger START_TILES = 25;
 	}
 }
 
-
-- (void)setMatchGoal {
-    NSNumber *goal = [NSNumber numberWithUnsignedInt:arc4random()%10];
+-(void)endGame {
+    GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
+    gameEndPopover.positionType = CCPositionTypeNormalized;
+    gameEndPopover.position = ccp(0.5, 0.5);
+    gameEndPopover.zOrder = INT_MAX;
+    [gameEndPopover setFinalScore:self.score];
 }
 
 # pragma mark - Gameplay
@@ -99,7 +103,7 @@ static const NSInteger START_TILES = 25;
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         //TODO: wtf
-        self.score.intValue = self.score.intValue + value.intValue;
+        //self.score.intValue = self.score.intValue + value.intValue;
     }
 }
 

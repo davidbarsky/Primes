@@ -21,6 +21,7 @@
 
 - (void)didLoadFromCCB {
     [_grid addObserver:self forKeyPath:@"score" options:0 context:NULL];
+    _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -31,6 +32,12 @@
 
 - (void)dealloc {
     [_grid removeObserver:self forKeyPath:@"score"];
+}
+
+# pragma mark — Gameplay setup
+
+- (void)setMatchGoal:(NSInteger)goal {
+    _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)goal];
 }
 
 @end
