@@ -16,18 +16,22 @@
 	CGFloat _tileMarginHorizontal;
     NSMutableArray *_gridArray;
     NSNull *_noTile;
+    
+    // Labels
+    CCLabelTTF *_roundScoreLabel;
 }
 
 @synthesize tileValuesToCombine = _tileValuesToCombine;
 
-#pragma mark - Constants
-
 static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
+
+#pragma mark - Game setup
 
 - (void)didLoadFromCCB {
 	[self setupBackground];
     self.tileValuesToCombine = [NSMutableArray array];
+    self.score = 0;
     
     _noTile = [NSNull null];
 	_gridArray = [NSMutableArray array];
@@ -37,11 +41,10 @@ static const NSInteger START_TILES = 25;
 			_gridArray[i][j] = _noTile;
 		}
 	}
-    
+    [self setGoal:[NSNumber numberWithUnsignedInt:arc4random()%10]];
+    _roundScoreLabel.string = [NSString stringWithFormat:@"%d", self.goal.intValue];
     [self spawnStartTiles];
 }
-
-#pragma mark - Sets up Tile background
 
 - (void)setupBackground {
     // load tile to read dimenions. Remember, you never declared size of the tiles.
@@ -76,7 +79,16 @@ static const NSInteger START_TILES = 25;
 	}
 }
 
+
+- (void)setMatchGoal {
+    NSNumber *goal = [NSNumber numberWithUnsignedInt:arc4random()%10];
+}
+
 # pragma mark - Gameplay
+
+- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self addTileValues];
+}
 
 // gets values from array, and combines them.
 //TODO: add support for additional operators.
@@ -86,7 +98,8 @@ static const NSInteger START_TILES = 25;
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
-        self.score += [value integerValue];
+        //TODO: wtf
+        self.score.intValue = self.score.intValue + value.intValue;
     }
 }
 
@@ -119,7 +132,7 @@ static const NSInteger START_TILES = 25;
 	tile.scale = 0.f;
 	[self addChild:tile];
 	tile.position = [self positionForColumn:column row:row];
-    //TODO: sort out timing
+    //TODO: write better animations
 	CCActionDelay *delay = [CCActionDelay actionWithDuration:0.3f];
 	CCActionScaleTo *scaleUp = [CCActionScaleTo actionWithDuration:0.2f scale:1.f];
 	CCActionSequence *sequence = [CCActionSequence actionWithArray:@[delay, scaleUp]];
