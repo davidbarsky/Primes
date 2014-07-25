@@ -10,6 +10,4 @@
 
 @interface MainScene : CCNode
 
-- (void)setMatchGoal:(NSInteger)goal;
-
 @end

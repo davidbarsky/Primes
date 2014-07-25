@@ -11,10 +11,11 @@
 
 @interface Grid : CCNodeColor
 
-@property (nonatomic, assign) NSInteger* currentSum;
-@property (nonatomic, assign) NSInteger* goal;
-@property (nonatomic, assign) NSInteger* score;
-@property (nonatomic, assign) NSInteger* timeLeft;
+@property (nonatomic, assign) NSInteger currentSum;
+@property (nonatomic, assign) NSInteger goal;
+@property (nonatomic, assign) NSInteger score;
+@property (nonatomic, assign) NSInteger timeLeft;
+@property (nonatomic, assign) NSInteger movesMadeThisRound;
 
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine;
 

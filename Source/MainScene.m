@@ -34,10 +34,4 @@
     [_grid removeObserver:self forKeyPath:@"score"];
 }
 
-# pragma mark — Gameplay setup
-
-- (void)setMatchGoal:(NSInteger)goal {
-    _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)goal];
-}
-
 @end

@@ -24,6 +24,7 @@
 
 static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
+static const NSInteger MAX_MOVE_COUNT = 30;
 
 #pragma mark - Game setup
 
@@ -42,9 +43,9 @@ static const NSInteger START_TILES = 25;
 			_gridArray[i][j] = _noTile;
 		}
 	}
-//    [self.mScene setMatchGoal:10];
-    self.goal = 10;
+    self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(5) + 5].intValue;
     [self spawnStartTiles];
+    NSLog(@"%ld", (long)_movesMadeThisRound);
 }
 
 - (void)setupBackground {
@@ -80,12 +81,18 @@ static const NSInteger START_TILES = 25;
 	}
 }
 
--(void)endGame {
+- (void)endGameConditions {
+    if (_movesMadeThisRound == MAX_MOVE_COUNT ) {
+        [self endGame];
+    }
+}
+
+- (void)endGame {
     GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
     gameEndPopover.positionType = CCPositionTypeNormalized;
     gameEndPopover.position = ccp(0.5, 0.5);
     gameEndPopover.zOrder = INT_MAX;
-    [gameEndPopover setFinalScore:self.score];
+    [gameEndPopover setFinalScore:(self.score)];
 }
 
 # pragma mark - Gameplay
@@ -101,8 +108,8 @@ static const NSInteger START_TILES = 25;
     NSLog(@"%@", _tileValuesToCombine);
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
-        NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         //TODO: wtf
+        NSInteger value = [_tileValuesToCombine objectAtIndex:i];
         //self.score.intValue = self.score.intValue + value.intValue;
     }
 }
