@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine;
 
-//@property (nonatomic, weak) MainScene* mScene;
++ (instancetype)sharedInstance;
+// to use: [Grid sharedGridInstance].score gets you the score property.
 
 @end

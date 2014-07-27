@@ -26,6 +26,34 @@ static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
 static const NSInteger MAX_MOVE_COUNT = 30;
 
+#pragma mark - Class initalization
+
++ (instancetype)sharedInstance {
+    // structure used to test whether the block has completed or not
+    static dispatch_once_t p = 0;
+    
+    // initialize sharedObject as nil (first call only)
+    __strong static id _sharedObject = nil;
+    
+    // executes a block object once and only once for the lifetime of an application
+    dispatch_once(&p, ^{
+        _sharedObject = [[self alloc]init];
+    });
+    
+    // returns the same object each time
+    return _sharedObject;
+}
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.movesMadeThisRound = 0;
+    }
+    
+    return self;
+}
+
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
