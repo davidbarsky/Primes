@@ -109,8 +109,8 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         //TODO: wtf
-        NSInteger value = [_tileValuesToCombine objectAtIndex:i];
-        //self.score.intValue = self.score.intValue + value.intValue;
+        NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
+        _score += value.intValue;
     }
 }
 
