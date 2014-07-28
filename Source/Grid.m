@@ -35,7 +35,7 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 - (void)didLoadFromCCB {
 
     [self setupBackground];
-    self.userInteractionEnabled = true;
+//    self.userInteractionEnabled = true;
 
     self.score = 0;
     
@@ -85,24 +85,24 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 	}
 }
 
-# pragma mark - Touch Handlers
-
--(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
-    CGPoint touchInWorld = [touch locationInWorld];
-    float cellSize = self.contentSize.height/GRID_SIZE;
-    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
-}
-
--(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchInWorld = [touch locationInWorld];
-    float cellSize = self.contentSize.height/GRID_SIZE;
-    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
-}
-
-- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    //[self addTileValues];
-    NSLog(@"touchended");
-}
+//# pragma mark - Touch Handlers
+//
+//-(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
+//    CGPoint touchInWorld = [touch locationInWorld];
+//    float cellSize = self.contentSize.height/GRID_SIZE;
+//    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+//}
+//
+//-(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+//    CGPoint touchInWorld = [touch locationInWorld];
+//    float cellSize = self.contentSize.height/GRID_SIZE;
+//    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+//}
+//
+//- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+//    //[self addTileValues];
+//    NSLog(@"touchended");
+//}
 
 # pragma mark - Gameplay
 
