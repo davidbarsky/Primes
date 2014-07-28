@@ -12,12 +12,17 @@
 #import "GameEnd.h"
 
 @implementation Grid {
-	CGFloat _columnWidth;
+    // for creating/accessing tiles on grid
+    CGFloat _columnWidth;
 	CGFloat _columnHeight;
 	CGFloat _tileMarginVertical;
 	CGFloat _tileMarginHorizontal;
+
+    // for creating the tiles on the grid
     NSMutableArray *_gridArray;
     NSNull *_noTile;
+    
+    // for touch handling
     NSMutableArray *_touchedTileArray;
 }
 
@@ -28,14 +33,10 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
-	// initializations
-    
-    NSNumber *test = @1;
-    
+
     [self setupBackground];
     self.userInteractionEnabled = true;
 
-    [self.tileValuesToCombine addObject:test];
     self.score = 0;
     
     _noTile = [NSNull null];
