@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine;
 
-+ (instancetype)sharedInstance;
-// to use: [Grid sharedGridInstance].score gets you the score property.
+- (void)addTileValues;
+
 
 @end

@@ -17,7 +17,7 @@
 
 @property (nonatomic, assign) BOOL mergedThisRound;
 
-@property (nonatomic, strong) Grid* gridReference;
+@property (nonatomic, weak) Grid* gridReference;
 
 - (void)updateValueDisplay;
 

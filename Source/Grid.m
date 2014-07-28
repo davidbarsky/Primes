@@ -18,51 +18,26 @@
 	CGFloat _tileMarginHorizontal;
     NSMutableArray *_gridArray;
     NSNull *_noTile;
+    NSMutableArray *_touchedTileArray;
 }
-
-@synthesize tileValuesToCombine = _tileValuesToCombine;
 
 static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
 static const NSInteger MAX_MOVE_COUNT = 30;
 
-//-----------------------------------
-#pragma mark - Class initalization
-
-+ (instancetype)sharedInstance {
-    // structure used to test whether the block has completed or not
-    static dispatch_once_t p = 0;
-    
-    // initialize sharedObject as nil (first call only)
-    __strong static id _sharedObject = nil;
-    
-    // executes a block object once and only once for the lifetime of an application
-    dispatch_once(&p, ^{
-        _sharedObject = [[self alloc]init];
-    });
-    
-    // returns the same object each time
-    return _sharedObject;
-}
-
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        self.movesMadeThisRound = 0;
-    }
-    
-    return self;
-}
-
-//-----------------------------------
+//-----------------------------------//
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
 	// initializations
     
+    NSNumber *test = @1;
+    
     [self setupBackground];
-    self.tileValuesToCombine = [NSMutableArray array];
+    self.userInteractionEnabled = true;
+    self.tileValuesToCombine = [NSMutableArray arrayWithObjects:@1, @2, nil];
+    
+    [self.tileValuesToCombine addObject:test];
     self.score = 0;
     
     _noTile = [NSNull null];
@@ -125,20 +100,34 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     [gameEndPopover setFinalScore:(self.score)];
 }
 
+
+
 # pragma mark - Gameplay
 
+-(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
+    CGPoint touchInWorld = [touch locationInWorld];
+    float cellSize = self.contentSize.height/GRID_SIZE;
+    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+
+
+}
+
+-(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint touchInWorld = [touch locationInWorld];
+    float cellSize = self.contentSize.height/GRID_SIZE;
+    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+}
+
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    [self addTileValues];
+    //[self addTileValues];
+    NSLog(@"touchended");
 }
 
 // gets values from array, and combines them.
 //TODO: add support for additional operators.
 - (void)addTileValues {
     
-    NSLog(@"%@", _tileValuesToCombine);
-    
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
-        //TODO: wtf
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         _score += value.intValue;
     }
