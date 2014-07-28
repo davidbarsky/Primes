@@ -32,11 +32,14 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 
 #pragma mark - Game setup
 
+// effecivitly the init method
 - (void)didLoadFromCCB {
 
     [self setupBackground];
     self.userInteractionEnabled = true;
-
+    
+    _touchedTileArray = [NSMutableArray array];
+    
     self.score = 0;
     
     _noTile = [NSNull null];
@@ -87,21 +90,45 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 
 # pragma mark - Touch Handlers
 
--(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
+- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
+
+    // my god this horrible
+    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
+                                     [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
+                                     nil];
+    NSValue *val = [touchedPoint objectAtIndex:0];
+
+    // if it doesn't contain the NSValue val, add it to the array
+    if (![_touchedTileArray containsObject:val]) {
+        [_touchedTileArray addObject:val];
+    }
+
     NSLog(@"touch began. x: %.0f y: %.0f", floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize));
 }
 
--(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+- (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
+    
+    // my god this horrible
+    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
+                                    [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
+                                    nil];
+    NSValue *val = [touchedPoint objectAtIndex:0];
+    
+    // if it doesn't contain the NSValue val, add it to the array
+    if (![_touchedTileArray containsObject:val]) {
+        [_touchedTileArray addObject:val];
+    }
+    
     NSLog(@"touch began. x: %.0f y: %.0f", floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize));
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     //[self addTileValues];
-    NSLog(@"touchended");
+    NSLog(@"touch ended, array contains: %@", _touchedTileArray);
 }
 
 # pragma mark - Gameplay
