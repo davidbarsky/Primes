@@ -25,7 +25,6 @@ static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
 static const NSInteger MAX_MOVE_COUNT = 30;
 
-//-----------------------------------//
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
@@ -35,8 +34,7 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     
     [self setupBackground];
     self.userInteractionEnabled = true;
-    self.tileValuesToCombine = [NSMutableArray arrayWithObjects:@1, @2, nil];
-    
+
     [self.tileValuesToCombine addObject:test];
     self.score = 0;
     
@@ -86,30 +84,12 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 	}
 }
 
-- (void)endGameConditions {
-    if (_movesMadeThisRound == MAX_MOVE_COUNT ) {
-        [self endGame];
-    }
-}
-
-- (void)endGame {
-    GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
-    gameEndPopover.positionType = CCPositionTypeNormalized;
-    gameEndPopover.position = ccp(0.5, 0.5);
-    gameEndPopover.zOrder = INT_MAX;
-    [gameEndPopover setFinalScore:(self.score)];
-}
-
-
-
-# pragma mark - Gameplay
+# pragma mark - Touch Handlers
 
 -(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
     NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
-
-
 }
 
 -(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -123,6 +103,8 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     NSLog(@"touchended");
 }
 
+# pragma mark - Gameplay
+
 // gets values from array, and combines them.
 //TODO: add support for additional operators.
 - (void)addTileValues {
@@ -131,6 +113,22 @@ static const NSInteger MAX_MOVE_COUNT = 30;
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         _score += value.intValue;
     }
+}
+
+# pragma mark - End Game Conditions
+
+- (void)endGameConditions {
+    if (_movesMadeThisRound == MAX_MOVE_COUNT ) {
+        [self endGame];
+    }
+}
+
+- (void)endGame {
+    GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
+    gameEndPopover.positionType = CCPositionTypeNormalized;
+    gameEndPopover.position = ccp(0.5, 0.5);
+    gameEndPopover.zOrder = INT_MAX;
+    [gameEndPopover setFinalScore:(self.score)];
 }
 
 # pragma mark - Tile Spawners
