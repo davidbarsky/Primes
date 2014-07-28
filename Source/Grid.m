@@ -90,13 +90,13 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 -(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
-    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+    NSLog(@"touch began. x: %.0f y: %.0f", floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize));
 }
 
 -(void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
-    NSLog(@"touch began. x: %.0f y: %.0f", ceilf(touchInWorld.x/cellSize), ceilf(touchInWorld.y/cellSize));
+    NSLog(@"touch began. x: %.0f y: %.0f", floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize));
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
