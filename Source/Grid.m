@@ -26,6 +26,7 @@ static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
 static const NSInteger MAX_MOVE_COUNT = 30;
 
+//-----------------------------------
 #pragma mark - Class initalization
 
 + (instancetype)sharedInstance {
@@ -54,6 +55,7 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     return self;
 }
 
+//-----------------------------------
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
@@ -77,7 +79,7 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 }
 
 - (void)setupBackground {
-    // load tile to read dimenions. Remember, you never declared size of the tiles.
+    // load tile to read dimensions. Remember, you never declared size of the tiles.
 	Tile *tile = (Tile*)[CCBReader load:@"Tile"];
     tile.gridReference = self;
 	_columnWidth = tile.contentSize.width;
