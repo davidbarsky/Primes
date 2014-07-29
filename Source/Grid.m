@@ -184,7 +184,10 @@ static const NSInteger MAX_MOVE_COUNT = 2;
     gameEndPopover.positionType = CCPositionTypeNormalized;
     gameEndPopover.position = ccp(0.5, 0.5);
     gameEndPopover.zOrder = INT_MAX;
+
     [gameEndPopover setFinalScore:(self.score)];
+    
+    [self addChild:gameEndPopover];
 }
 
 # pragma mark - Tile Spawners
