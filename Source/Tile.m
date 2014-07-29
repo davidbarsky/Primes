@@ -30,12 +30,4 @@
     _valueLabel.string = [NSString stringWithFormat:@"%d", self.value.intValue];
 }
 
-//- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-////    NSLog(@"TouchBegan, current tile value: %@ " ,self.value);
-//    [self.gridReference.tileValuesToCombine addObject:self.value];
-////
-////    NSLog(@"touch began, array contains: %@", self.gridReference.tileValuesToCombine);
-////    [self.gridReference addTileValues];
-//}
-
 @end
