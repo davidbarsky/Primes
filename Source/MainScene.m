@@ -20,7 +20,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"score"]) {
-        _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.score];
+        _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
     }
 }
 
