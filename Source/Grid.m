@@ -138,8 +138,8 @@ static const NSInteger MAX_MOVE_COUNT = 30;
         NSValue *val = [_touchedTileArray objectAtIndex:i];
         CGPoint p = [val CGPointValue];
         
-        int x = p.x;
-        int y = p.y;
+        NSInteger x = p.x;
+        NSInteger y = p.y;
         
         Tile *tempTile = _gridArray[x][y];
 
@@ -148,16 +148,16 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
-        _currentSum += value.intValue;
+        self.currentSum += value.intValue;
     }
     
-    NSLog(@"Before: %ld", _score);
+    NSLog(@"Before: %ld", self.score);
     
-    if (_currentSum == _goal) {
-        _score += 1;
+    if (self.currentSum == self.goal) {
+        self.score += 1;
     }
     
-    NSLog(@"After: %ld", _score);
+    NSLog(@"After: %ld", self.score);
 }
 
 # pragma mark - End Game Conditions
