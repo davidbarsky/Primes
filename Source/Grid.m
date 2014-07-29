@@ -42,8 +42,6 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     _touchedTileArray = [NSMutableArray array];
     _tileValuesToCombine = [NSMutableArray array];
     
-    self.score = 0;
-    
     _noTile = [NSNull null];
 	_gridArray = [NSMutableArray array];
 	for (int i = 0; i < GRID_SIZE; i++) {
@@ -52,7 +50,11 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 			_gridArray[i][j] = _noTile;
 		}
 	}
+    
+    // gameplay numbers setup
     self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(5) + 5].intValue;
+    self.score = 0;
+    
     [self spawnStartTiles];
 }
 
@@ -144,12 +146,18 @@ static const NSInteger MAX_MOVE_COUNT = 30;
         [_tileValuesToCombine addObject:tempTile.value];
     }
     
-    NSLog(@"_tileValuesToCombine contains: %@", _tileValuesToCombine);
-    
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
-        _score += value.intValue;
+        _currentSum += value.intValue;
     }
+    
+    NSLog(@"Before: %ld", _score);
+    
+    if (_currentSum == _goal) {
+        _score += 1;
+    }
+    
+    NSLog(@"After: %ld", _score);
 }
 
 # pragma mark - End Game Conditions

@@ -11,12 +11,6 @@
 
 @implementation MainScene {
 	Grid *_grid;
-    // score labels in top
-	CCLabelTTF *_roundScoreLabel;
-	CCLabelTTF *_roundGoalLabel;
-    
-    // label that updates whenever
-    CCLabelTTF *_gameplayScoreLabel;
 }
 
 - (void)didLoadFromCCB {

@@ -19,8 +19,6 @@
 
 - (id)init {
     if (self = [super init]) {
-        // activates touches
-        self.userInteractionEnabled = TRUE;
         self.value = [NSNumber numberWithUnsignedInt:arc4random()%10];
     }
     return self;
