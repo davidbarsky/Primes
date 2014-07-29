@@ -28,7 +28,7 @@
 
 static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
-static const NSInteger MAX_MOVE_COUNT = 30;
+static const NSInteger MAX_MOVE_COUNT = 2;
 
 #pragma mark - Game setup
 
@@ -155,12 +155,17 @@ static const NSInteger MAX_MOVE_COUNT = 30;
     NSLog(@"Before: %ld", self.score);
     
     if (currentSum == self.goal) {
-        self.score = self.score + 1;
+        self.score++;
+        self.movesMadeThisRound++;
     }
     
     currentSum = 0;
     
     [self resetRoundVariables];
+    
+    if (self.movesMadeThisRound == MAX_MOVE_COUNT) {
+        [self endGame];
+    }
     
     NSLog(@"currentSum: %ld", currentSum);
     NSLog(@"After: %ld", self.score);
@@ -173,12 +178,6 @@ static const NSInteger MAX_MOVE_COUNT = 30;
 }
 
 # pragma mark - End Game Conditions
-
-- (void)endGameConditions {
-    if (_movesMadeThisRound == MAX_MOVE_COUNT ) {
-        [self endGame];
-    }
-}
 
 - (void)endGame {
     GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
