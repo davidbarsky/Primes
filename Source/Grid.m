@@ -26,9 +26,10 @@
     NSMutableArray *_touchedTileArray;
 }
 
+static const NSInteger MIN_ACCEPTED_TILES = 2;
 static const NSInteger GRID_SIZE = 5;
 static const NSInteger START_TILES = 25;
-static const NSInteger MAX_MOVE_COUNT = 2;
+static const NSInteger MAX_MOVE_COUNT = 5;
 
 #pragma mark - Game setup
 
@@ -96,7 +97,6 @@ static const NSInteger MAX_MOVE_COUNT = 2;
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
 
-    // omfg this is horrible
     NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
                                      [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
                                      nil];
@@ -112,7 +112,6 @@ static const NSInteger MAX_MOVE_COUNT = 2;
     CGPoint touchInWorld = [touch locationInWorld];
     float cellSize = self.contentSize.height/GRID_SIZE;
     
-    // omfg this is horrible
     NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
                                     [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
                                     nil];
@@ -125,7 +124,9 @@ static const NSInteger MAX_MOVE_COUNT = 2;
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    [self addTileValues];
+    if ([_touchedTileArray count] >= MIN_ACCEPTED_TILES) {
+         [self addTileValues];
+    }
 }
 
 # pragma mark - Gameplay
@@ -170,6 +171,23 @@ static const NSInteger MAX_MOVE_COUNT = 2;
     NSLog(@"currentSum: %ld", (long)currentSum);
     NSLog(@"After: %ld", (long)self.score);
     NSLog(@"Goal is: %ld", (long)self.goal);
+}
+
+- (void)removeTappedTiles {
+    CCActionRemove *removeTile = [CCActionRemove action];
+
+    for (int i = 0; i < [_touchedTileArray count]; i++) {
+        NSValue *val = [_touchedTileArray objectAtIndex:i];
+        CGPoint p = [val CGPointValue];
+        
+        NSInteger x = p.x;
+        NSInteger y = p.y;
+        
+        Tile *tileToRemove = _gridArray[x][y];
+        _gridArray[x][y] = _noTile;
+        
+        [tileToRemove runAction:removeTile];
+    }
 }
 
 - (void)resetRoundVariables {
