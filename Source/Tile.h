@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) BOOL mergedThisRound;
 
+@property (nonatomic, assign) CGPoint tileLocation;
+
 @property (nonatomic, weak) Grid* gridReference;
 
 - (void)updateValueDisplay;

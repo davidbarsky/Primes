@@ -227,8 +227,10 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 }
 
 - (void)spawnStartTiles {
-    for (int i = 0; i < START_TILES; i++) {
-        [self spawnRandomTile];
+    for (int i = 0; i < GRID_SIZE; i++) {
+        for (int j = 0; j < GRID_SIZE; j++) {
+            [self addTileAtColumn:i row:j];
+        }
     }
 }
 
@@ -237,6 +239,8 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     tile.gridReference = self;
 	_gridArray[column][row] = tile;
 	tile.scale = 0.f;
+    CGPoint tileLocationInArray = CGPointMake(column, row);
+    [tile setTileLocation:tileLocationInArray];
 	[self addChild:tile];
 	tile.position = [self positionForColumn:column row:row];
     //TODO: write better animations
