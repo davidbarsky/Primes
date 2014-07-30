@@ -27,8 +27,8 @@
 }
 
 static const NSInteger MIN_ACCEPTED_TILES = 2;
-static const NSInteger GRID_SIZE = 5;
-static const NSInteger START_TILES = 25;
+static const NSInteger GRID_SIZE = 6;
+static const NSInteger START_TILES = 36;
 static const NSInteger MAX_MOVE_COUNT = 5;
 
 #pragma mark - Game setup
