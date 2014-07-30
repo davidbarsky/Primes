@@ -152,7 +152,7 @@ static const NSInteger MAX_MOVE_COUNT = 2;
         currentSum += value.intValue;
     }
     
-    NSLog(@"Before: %ld", self.score);
+    NSLog(@"Before: %ld", (long)self.score);
     
     if (currentSum == self.goal) {
         self.score++;
@@ -167,9 +167,9 @@ static const NSInteger MAX_MOVE_COUNT = 2;
         [self endGame];
     }
     
-    NSLog(@"currentSum: %ld", currentSum);
-    NSLog(@"After: %ld", self.score);
-    NSLog(@"Goal is: %ld", self.goal);
+    NSLog(@"currentSum: %ld", (long)currentSum);
+    NSLog(@"After: %ld", (long)self.score);
+    NSLog(@"Goal is: %ld", (long)self.goal);
 }
 
 - (void)resetRoundVariables {
