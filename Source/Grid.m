@@ -160,8 +160,7 @@ static const NSInteger MAX_MOVE_COUNT = 5;
         self.movesMadeThisRound++;
     }
     
-    currentSum = 0;
-    
+    [self replaceTappedTiles];
     [self resetRoundVariables];
     
     if (self.movesMadeThisRound == MAX_MOVE_COUNT) {
@@ -173,20 +172,23 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     NSLog(@"Goal is: %ld", (long)self.goal);
 }
 
-- (void)removeTappedTiles {
-    CCActionRemove *removeTile = [CCActionRemove action];
+- (void)replaceTappedTiles {
+    CCActionRemove *remove = [CCActionRemove action];
 
     for (int i = 0; i < [_touchedTileArray count]; i++) {
         NSValue *val = [_touchedTileArray objectAtIndex:i];
         CGPoint p = [val CGPointValue];
         
-        NSInteger x = p.x;
-        NSInteger y = p.y;
+        CGPoint correctedPoint = [self positionForColumn:p.x row:p.y];
+        
+        NSInteger x = correctedPoint.x;
+        NSInteger y = correctedPoint.y;
         
         Tile *tileToRemove = _gridArray[x][y];
         _gridArray[x][y] = _noTile;
         
-        [tileToRemove runAction:removeTile];
+        [tileToRemove runAction:remove];
+        [self addTileAtColumn:x row:y];
     }
 }
 

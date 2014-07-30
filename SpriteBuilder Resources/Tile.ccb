@@ -126,7 +126,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Futura-CondensedMedium</string>
+								<string>ccbResources/KlinicSlabBook.ttf</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -183,9 +183,9 @@
 								<string>Color4</string>
 								<key>value</key>
 								<array>
-									<real>0.27450981736183167</real>
-									<real>0.27843138575553894</real>
-									<real>0.23529411852359772</real>
+									<real>1</real>
+									<real>1</real>
+									<real>1</real>
 									<real>1</real>
 								</array>
 							</dict>
@@ -332,9 +332,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.86376041173934937</real>
-							<real>0.41045284271240234</real>
-							<real>0.90223217010498047</real>
+							<real>0.76862746477127075</real>
+							<real>0.27843138575553894</real>
+							<real>0.25490197539329529</real>
 							<real>1</real>
 						</array>
 					</dict>
