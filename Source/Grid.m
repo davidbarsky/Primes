@@ -32,13 +32,11 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 
 #pragma mark - Game setup
 
-// effecivitly the init method
 - (void)didLoadFromCCB {
 
     [self setupBackground];
     self.userInteractionEnabled = true;
     
-    // arrays declarations for combining values later one
     _touchedTileSet = [NSMutableSet set];
     _tileValuesToCombine = [NSMutableArray array];
     
@@ -51,35 +49,30 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 		}
 	}
     
-    // gameplay numbers setup
     self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(5) + 5].intValue;
     
     [self spawnStartTiles];
 }
 
 - (void)setupBackground {
-    // load tile to read dimensions. Remember, you never declared size of the tiles.
+    // loads tile to read dimensions.
 	Tile *tile = (Tile*)[CCBReader load:@"Tile"];
     tile.gridReference = self;
 	_columnWidth = tile.contentSize.width;
 	_columnHeight = tile.contentSize.height;
     
-        // hotfix
+        // hotfix to prevent crashing. Bug in Cocos2dX
         [tile performSelector:@selector(cleanup)];
     
     _tileMarginHorizontal = (self.contentSize.width - (GRID_SIZE * _columnWidth)) / (GRID_SIZE+1);
     _tileMarginVertical = (self.contentSize.height - (GRID_SIZE * _columnHeight)) / (GRID_SIZE+1);
     
-	// set up initial x and y positions
 	float x = _tileMarginHorizontal;
 	float y = _tileMarginVertical;
 
 	for (int i = 0; i < GRID_SIZE; i++) {
-        // iterate through each row
 		x = _tileMarginHorizontal;
-
 		for (int j = 0; j < GRID_SIZE; j++) {
-			//  iterate through each column in the current row
 			CCNodeColor *backgroundTile = [CCNodeColor nodeWithColor:[CCColor grayColor]];
 			backgroundTile.contentSize = CGSizeMake(_columnWidth, _columnHeight);
 			backgroundTile.position = ccp(x, y);
@@ -96,9 +89,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     CGPoint touchInWorld = [touch locationInNode:self];
     float cellSize = self.contentSize.height/GRID_SIZE;
 
-//    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
-//                                     [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
-//                                     nil];
     NSValue *val = [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))];
 
     [_touchedTileSet addObject:val];
@@ -163,11 +153,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
-        
-//        CGPoint correctedPoint = [self positionForColumn:p.x row:p.y];
-//        
-//        NSInteger x = correctedPoint.x;
-//        NSInteger y = correctedPoint.y;
         
         NSInteger x = p.x;
         NSInteger y = p.y;
