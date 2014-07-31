@@ -23,12 +23,11 @@
     NSNull *_noTile;
     
     // for touch handling
-    NSMutableArray *_touchedTileArray;
+    NSMutableSet *_touchedTileSet;
 }
 
 static const NSInteger MIN_ACCEPTED_TILES = 2;
 static const NSInteger GRID_SIZE = 6;
-static const NSInteger START_TILES = 36;
 static const NSInteger MAX_MOVE_COUNT = 5;
 
 #pragma mark - Game setup
@@ -40,7 +39,7 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     self.userInteractionEnabled = true;
     
     // arrays declarations for combining values later one
-    _touchedTileArray = [NSMutableArray array];
+    _touchedTileSet = [NSMutableSet set];
     _tileValuesToCombine = [NSMutableArray array];
     
     _noTile = [NSNull null];
@@ -94,66 +93,53 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 # pragma mark - Touch Handlers
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
-    CGPoint touchInWorld = [touch locationInWorld];
+    CGPoint touchInWorld = [touch locationInNode:self];
     float cellSize = self.contentSize.height/GRID_SIZE;
 
-    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
-                                     [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
-                                     nil];
-    NSValue *val = [touchedPoint objectAtIndex:0];
+//    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
+//                                     [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
+//                                     nil];
+    NSValue *val = [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))];
 
-    // if it doesn't contain the NSValue val, add it to the array
-    if (![_touchedTileArray containsObject:val]) {
-        [_touchedTileArray addObject:val];
-    }
+    [_touchedTileSet addObject:val];
 }
 
 - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchInWorld = [touch locationInWorld];
+    CGPoint touchInWorld = [touch locationInNode:self];
     float cellSize = self.contentSize.height/GRID_SIZE;
     
-    NSMutableArray *touchedPoint = [NSMutableArray arrayWithObjects:
-                                    [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))],
-                                    nil];
-    NSValue *val = [touchedPoint objectAtIndex:0];
+    NSValue *val = [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))];
     
-    // if it doesn't contain the NSValue val, add it to the array
-    if (![_touchedTileArray containsObject:val]) {
-        [_touchedTileArray addObject:val];
-    }
+    [_touchedTileSet addObject:val];
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    if ([_touchedTileArray count] >= MIN_ACCEPTED_TILES) {
+    if ([_touchedTileSet count] >= MIN_ACCEPTED_TILES) {
          [self addTileValues];
     }
 }
 
 # pragma mark - Gameplay
 
-// gets values from array, and combines them.
 - (void)addTileValues {
-    
-    for (int i = 0; i < [_touchedTileArray count]; i++) {
-        NSValue *val = [_touchedTileArray objectAtIndex:i];
-        CGPoint p = [val CGPointValue];
-        
-        NSInteger x = p.x;
-        NSInteger y = p.y;
-        
-        Tile *tempTile = _gridArray[x][y];
-
-        [_tileValuesToCombine addObject:tempTile.value];
+    for (NSValue *val in _touchedTileSet) {
+        [_tileValuesToCombine addObject:val];
     }
     
     NSInteger currentSum = 0;
     
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
-        currentSum += value.intValue;
+        
+        CGPoint point = value.CGPointValue;
+        
+        NSInteger x = point.x;
+        NSInteger y = point.y;
+        
+        Tile *tempTile = _gridArray[x][y];
+        
+        currentSum += tempTile.value.intValue;
     }
-    
-    NSLog(@"Before: %ld", (long)self.score);
     
     if (currentSum == self.goal) {
         self.score++;
@@ -175,14 +161,16 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 - (void)replaceTappedTiles {
     CCActionRemove *remove = [CCActionRemove action];
 
-    for (int i = 0; i < [_touchedTileArray count]; i++) {
-        NSValue *val = [_touchedTileArray objectAtIndex:i];
+    for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
         
-        CGPoint correctedPoint = [self positionForColumn:p.x row:p.y];
+//        CGPoint correctedPoint = [self positionForColumn:p.x row:p.y];
+//        
+//        NSInteger x = correctedPoint.x;
+//        NSInteger y = correctedPoint.y;
         
-        NSInteger x = correctedPoint.x;
-        NSInteger y = correctedPoint.y;
+        NSInteger x = p.x;
+        NSInteger y = p.y;
         
         Tile *tileToRemove = _gridArray[x][y];
         _gridArray[x][y] = _noTile;
@@ -194,37 +182,10 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 
 - (void)resetRoundVariables {
     [_tileValuesToCombine removeAllObjects];
-    [_touchedTileArray removeAllObjects];
-}
-
-# pragma mark - End Game Conditions
-
-- (void)endGame {
-    GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
-    gameEndPopover.positionType = CCPositionTypeNormalized;
-    gameEndPopover.position = ccp(0.5, 0.5);
-    gameEndPopover.zOrder = INT_MAX;
-
-    [gameEndPopover setFinalScore:(self.score)];
-    
-    [self addChild:gameEndPopover];
+    [_touchedTileSet removeAllObjects];
 }
 
 # pragma mark - Tile Spawners
-
-//TODO: make more efficent than randomly distributing
-- (void)spawnRandomTile {
-	BOOL spawned = FALSE;
-	while (!spawned) {
-		NSInteger randomRow = arc4random() % GRID_SIZE;
-		NSInteger randomColumn = arc4random() % GRID_SIZE;
-		BOOL positionFree = (_gridArray[randomColumn][randomRow] == _noTile);
-		if (positionFree) {
-			[self addTileAtColumn:randomColumn row:randomRow];
-			spawned = TRUE;
-		}
-	}
-}
 
 - (void)spawnStartTiles {
     for (int i = 0; i < GRID_SIZE; i++) {
@@ -242,6 +203,7 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     CGPoint tileLocationInArray = CGPointMake(column, row);
     [tile setTileLocation:tileLocationInArray];
 	[self addChild:tile];
+
 	tile.position = [self positionForColumn:column row:row];
     //TODO: write better animations
 	CCActionDelay *delay = [CCActionDelay actionWithDuration:0.3f];
@@ -254,6 +216,20 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 	NSInteger x = _tileMarginHorizontal + column * (_tileMarginHorizontal + _columnWidth);
 	NSInteger y = _tileMarginVertical + row * (_tileMarginVertical + _columnHeight);
 	return CGPointMake(x,y);
+}
+
+
+# pragma mark - End Game Conditions
+
+- (void)endGame {
+    GameEnd *gameEndPopover = (GameEnd *)[CCBReader load:@"GameEnd"];
+    gameEndPopover.positionType = CCPositionTypeNormalized;
+    gameEndPopover.position = ccp(0.5, 0.5);
+    gameEndPopover.zOrder = INT_MAX;
+
+    [gameEndPopover setFinalScore:(self.score)];
+    
+    [self addChild:gameEndPopover];
 }
 
 @end
