@@ -131,12 +131,12 @@ static const NSInteger MAX_MOVE_COUNT = 5;
         currentSum += tempTile.value.intValue;
     }
     
-    if (currentSum == self.goal) {
+    if (currentSum % self.goal == 0) {
         self.score++;
         self.movesMadeThisRound++;
+        [self replaceTappedTiles];
     }
     
-    [self replaceTappedTiles];
     [self resetRoundVariables];
     
     if (self.movesMadeThisRound == MAX_MOVE_COUNT) {
@@ -161,7 +161,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
         _gridArray[x][y] = _noTile;
         [tileToRemove removeFromParentAndCleanup:TRUE];
         
-//        [tileToRemove runAction:remove];
         [self addTileAtColumn:x row:y];
     }
 }
