@@ -49,7 +49,7 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 		}
 	}
     
-    self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(5) + 5].intValue;
+    self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(4) + 5].intValue;
     
     [self spawnStartTiles];
 }
@@ -149,7 +149,7 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 }
 
 - (void)replaceTappedTiles {
-    CCActionRemove *remove = [CCActionRemove action];
+//    CCActionRemove *remove = [CCActionRemove action];
 
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
@@ -159,8 +159,9 @@ static const NSInteger MAX_MOVE_COUNT = 5;
         
         Tile *tileToRemove = _gridArray[x][y];
         _gridArray[x][y] = _noTile;
+        [tileToRemove removeFromParentAndCleanup:TRUE];
         
-        [tileToRemove runAction:remove];
+//        [tileToRemove runAction:remove];
         [self addTileAtColumn:x row:y];
     }
 }
@@ -202,7 +203,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 	NSInteger y = _tileMarginVertical + row * (_tileMarginVertical + _columnHeight);
 	return CGPointMake(x,y);
 }
-
 
 # pragma mark - End Game Conditions
 

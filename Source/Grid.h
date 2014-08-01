@@ -7,6 +7,7 @@
 //
 
 #import "CCNodeColor.h"
+
 @class MainScene;
 
 @interface Grid : CCNodeColor
