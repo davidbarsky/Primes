@@ -149,8 +149,8 @@ static const NSInteger GRID_SIZE = 6;
     
     [self resetRoundVariables];
     
-    if (_movesMadeThisRound == _roundMaxMoveCount) {
-        [self nextRound];
+    if (self.movesMadeThisRound > _roundMaxMoveCount) {
+        [self endGame];
     }
     
     NSLog(@"currentSum: %ld", (long)currentSum);
