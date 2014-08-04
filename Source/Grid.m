@@ -24,11 +24,13 @@
     
     // for touch handling
     NSMutableSet *_touchedTileSet;
+    
+    // for goals
+    NSArray *_primes;
 }
 
 static const NSInteger MIN_ACCEPTED_TILES = 2;
 static const NSInteger GRID_SIZE = 6;
-static const NSInteger MAX_MOVE_COUNT = 5;
 
 #pragma mark - Game setup
 
@@ -49,7 +51,15 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 		}
 	}
     
-    self.goal = [NSNumber numberWithUnsignedInt:arc4random_uniform(4) + 5].intValue;
+    _primes = @[@5, @7, @11, @13, @17, @19, @23, @29, @31, @37, @41, @43, @47, @53, @59, @61, @67, @71, @73, @79, @83, @89, @97, @101, @103, @107, @109, @113, @127];
+    
+    _roundNumber = 0;
+    _movesMadeThisRound = 0;
+    
+    _roundMaxMoveCount = [_primes objectAtIndex:0];
+    
+    NSNumber *newGoal = [_primes objectAtIndex:0];
+    self.goal = newGoal.intValue;
     
     [self spawnStartTiles];
 }
@@ -139,8 +149,8 @@ static const NSInteger MAX_MOVE_COUNT = 5;
     
     [self resetRoundVariables];
     
-    if (self.movesMadeThisRound == MAX_MOVE_COUNT) {
-        [self endGame];
+    if (_movesMadeThisRound == _roundMaxMoveCount) {
+        [self nextRound];
     }
     
     NSLog(@"currentSum: %ld", (long)currentSum);
@@ -149,7 +159,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 }
 
 - (void)replaceTappedTiles {
-//    CCActionRemove *remove = [CCActionRemove action];
 
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
@@ -163,11 +172,6 @@ static const NSInteger MAX_MOVE_COUNT = 5;
         
         [self addTileAtColumn:x row:y];
     }
-}
-
-- (void)resetRoundVariables {
-    [_tileValuesToCombine removeAllObjects];
-    [_touchedTileSet removeAllObjects];
 }
 
 # pragma mark - Tile Spawners
@@ -201,6 +205,33 @@ static const NSInteger MAX_MOVE_COUNT = 5;
 	NSInteger x = _tileMarginHorizontal + column * (_tileMarginHorizontal + _columnWidth);
 	NSInteger y = _tileMarginVertical + row * (_tileMarginVertical + _columnHeight);
 	return CGPointMake(x,y);
+}
+
+# pragma mark - Game Utility Handlers
+
+- (void)nextRound {
+    [self clearBoard];
+    _roundNumber++;
+    [self increaseGoalFromPrimesArray];
+}
+
+- (void)resetRoundVariables {
+    [_tileValuesToCombine removeAllObjects];
+    [_touchedTileSet removeAllObjects];
+}
+
+- (void)increaseGoalFromPrimesArray {
+    NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
+    [self setGoal: newGoal.intValue];
+    [self setRoundMaxMoveCount: newGoal.intValue];
+}
+
+- (void)clearBoard {
+    for (int i = 0; i < GRID_SIZE; i++) {
+        for (int j = 0; j < GRID_SIZE; j++) {
+            _gridArray[i][j] = _noTile;
+        }
+    }
 }
 
 # pragma mark - End Game Conditions

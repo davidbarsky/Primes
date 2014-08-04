@@ -19,7 +19,9 @@
 
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine;
 
-- (void)addTileValues;
+@property (nonatomic, assign) NSInteger roundNumber;
+@property (nonatomic, assign) NSInteger roundMaxMoveCount;
 
+- (void)addTileValues;
 
 @end
