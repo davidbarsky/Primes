@@ -19,7 +19,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.value = [NSNumber numberWithUnsignedInt:arc4random_uniform(4) + 5];
+        self.value = [NSNumber numberWithUnsignedInt:arc4random_uniform(9) + 1];
     }
     return self;
 }
