@@ -35,12 +35,14 @@ static const NSInteger GRID_SIZE = 6;
 #pragma mark - Game setup
 
 - (void)didLoadFromCCB {
-
     [self setupBackground];
     self.userInteractionEnabled = true;
     
     _touchedTileSet = [NSMutableSet set];
     _tileValuesToCombine = [NSMutableArray array];
+    _primes = @[@5, @7, @11, @13, @17, @19, @23, @29, @31, @37, @41, @43, @47, @53, @59, @61, @67, @71, @73, @79, @83, @89, @97, @101, @103, @107, @109, @113, @127];
+    
+    NSLog(@"_primes: %@", _primes);
     
     _noTile = [NSNull null];
 	_gridArray = [NSMutableArray array];
@@ -50,18 +52,19 @@ static const NSInteger GRID_SIZE = 6;
 			_gridArray[i][j] = _noTile;
 		}
 	}
-    
-    _primes = @[@5, @7, @11, @13, @17, @19, @23, @29, @31, @37, @41, @43, @47, @53, @59, @61, @67, @71, @73, @79, @83, @89, @97, @101, @103, @107, @109, @113, @127];
-    
+    [self intialiazeGameVariables];
+    [self spawnTiles];
+}
+
+- (void)intialiazeGameVariables {
     _roundNumber = 0;
     _movesMadeThisRound = 0;
     
-    _roundMaxMoveCount = [_primes objectAtIndex:0];
+    NSNumber *newMoveCount = [_primes objectAtIndex:0];
+    _roundMaxMoveCount = newMoveCount.integerValue;
     
     NSNumber *newGoal = [_primes objectAtIndex:0];
-    self.goal = newGoal.intValue;
-    
-    [self spawnStartTiles];
+    self.goal = newGoal.integerValue;
 }
 
 - (void)setupBackground {
@@ -119,7 +122,7 @@ static const NSInteger GRID_SIZE = 6;
     }
 }
 
-# pragma mark - Gameplay
+# pragma mark - Calculation
 
 - (void)addTileValues {
     for (NSValue *val in _touchedTileSet) {
@@ -149,17 +152,33 @@ static const NSInteger GRID_SIZE = 6;
     
     [self resetRoundVariables];
     
-    if (self.movesMadeThisRound > _roundMaxMoveCount) {
-        [self endGame];
+    if (self.movesMadeThisRound == _roundMaxMoveCount) {
+        [self nextRound];
     }
     
-    NSLog(@"currentSum: %ld", (long)currentSum);
-    NSLog(@"After: %ld", (long)self.score);
-    NSLog(@"Goal is: %ld", (long)self.goal);
+    NSLog(@"Move made so far: %ld", (long)_movesMadeThisRound);
+    NSLog(@"Goal needed to reach: %ld", (long)_roundMaxMoveCount);
+}
+
+# pragma mark - Tile Manipulators
+
+- (void)spawnTiles {
+    for (int i = 0; i < GRID_SIZE; i++) {
+        for (int j = 0; j < GRID_SIZE; j++) {
+            [self addTileAtColumn:i row:j];
+        }
+    }
+}
+
+- (void)removeTiles {
+    for (int i = 0; i < GRID_SIZE; i++) {
+        for (int j = 0; j < GRID_SIZE; j++) {
+            _gridArray[i][j] = _noTile;
+        }
+    }
 }
 
 - (void)replaceTappedTiles {
-
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
         
@@ -174,16 +193,6 @@ static const NSInteger GRID_SIZE = 6;
     }
 }
 
-# pragma mark - Tile Spawners
-
-- (void)spawnStartTiles {
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            [self addTileAtColumn:i row:j];
-        }
-    }
-}
-
 - (void)addTileAtColumn:(NSInteger)column row:(NSInteger)row {
 	Tile *tile = (Tile*) [CCBReader load:@"Tile"];
     tile.gridReference = self;
@@ -194,7 +203,6 @@ static const NSInteger GRID_SIZE = 6;
 	[self addChild:tile];
 
 	tile.position = [self positionForColumn:column row:row];
-    //TODO: write better animations
 	CCActionDelay *delay = [CCActionDelay actionWithDuration:0.3f];
 	CCActionScaleTo *scaleUp = [CCActionScaleTo actionWithDuration:0.2f scale:1.f];
 	CCActionSequence *sequence = [CCActionSequence actionWithArray:@[delay, scaleUp]];
@@ -210,7 +218,7 @@ static const NSInteger GRID_SIZE = 6;
 # pragma mark - Game Utility Handlers
 
 - (void)nextRound {
-    [self clearBoard];
+    [self removeTiles];
     _roundNumber++;
     [self increaseGoalFromPrimesArray];
 }
@@ -224,14 +232,6 @@ static const NSInteger GRID_SIZE = 6;
     NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
     [self setGoal: newGoal.intValue];
     [self setRoundMaxMoveCount: newGoal.intValue];
-}
-
-- (void)clearBoard {
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            _gridArray[i][j] = _noTile;
-        }
-    }
 }
 
 # pragma mark - End Game Conditions
