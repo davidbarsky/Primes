@@ -14,7 +14,7 @@
 }
 
 - (void)didLoadFromCCB {
-    [_grid addObserver:self forKeyPath:@"score" options:0 context:NULL];
+    [_grid addObserver:self forKeyPath:@"goal" options:0 context:NULL];
     _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
     
     [_grid addObserver:self forKeyPath:@"movesMadeThisRound" options:0 context:NULL];
@@ -22,7 +22,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"score"]) {
+    if ([keyPath isEqualToString:@"goal"]) {
         _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
     }
     

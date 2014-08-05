@@ -233,7 +233,7 @@ static const NSInteger GRID_SIZE = 6;
 - (void)increaseGoalFromPrimesArray {
     NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
     self.goal = newGoal.intValue;
-    [self setRoundMaxMoveCount: newGoal.intValue];
+    _roundMaxMoveCount = newGoal.intValue;
 }
 
 # pragma mark - End Game Conditions
