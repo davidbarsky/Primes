@@ -174,6 +174,7 @@ static const NSInteger GRID_SIZE = 6;
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             _gridArray[i][j] = _noTile;
+            NSLog(@"Tiles replaced");
         }
     }
 }
@@ -219,6 +220,7 @@ static const NSInteger GRID_SIZE = 6;
 
 - (void)nextRound {
     [self removeTiles];
+    [self spawnTiles];
     _roundNumber++;
     [self increaseGoalFromPrimesArray];
 }
@@ -230,7 +232,7 @@ static const NSInteger GRID_SIZE = 6;
 
 - (void)increaseGoalFromPrimesArray {
     NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
-    [self setGoal: newGoal.intValue];
+    self.goal = newGoal.intValue;
     [self setRoundMaxMoveCount: newGoal.intValue];
 }
 
