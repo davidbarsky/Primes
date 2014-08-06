@@ -128,9 +128,7 @@ static const NSInteger GRID_SIZE = 6;
     for (NSValue *val in _touchedTileSet) {
         [_tileValuesToCombine addObject:val];
     }
-    
     NSInteger currentSum = 0;
-    
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         
@@ -155,9 +153,6 @@ static const NSInteger GRID_SIZE = 6;
     if (self.movesMadeThisRound == _roundMaxMoveCount) {
         [self nextRound];
     }
-    
-    NSLog(@"Move made so far: %ld", (long)_movesMadeThisRound);
-    NSLog(@"Goal needed to reach: %ld", (long)_roundMaxMoveCount);
 }
 
 # pragma mark - Tile Manipulators
@@ -174,7 +169,6 @@ static const NSInteger GRID_SIZE = 6;
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             _gridArray[i][j] = _noTile;
-            NSLog(@"Tiles replaced");
         }
     }
 }
@@ -223,6 +217,7 @@ static const NSInteger GRID_SIZE = 6;
     [self spawnTiles];
     _roundNumber++;
     [self increaseGoalFromPrimesArray];
+    _movesMadeThisRound = 0;
 }
 
 - (void)resetRoundVariables {
@@ -233,7 +228,7 @@ static const NSInteger GRID_SIZE = 6;
 - (void)increaseGoalFromPrimesArray {
     NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
     self.goal = newGoal.intValue;
-    _roundMaxMoveCount = newGoal.intValue;
+    self.roundMaxMoveCount = newGoal.intValue;
 }
 
 # pragma mark - End Game Conditions
