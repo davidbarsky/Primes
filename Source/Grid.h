@@ -7,6 +7,7 @@
 //
 
 #import "CCNodeColor.h"
+#import <POP/POP.h>
 
 @class MainScene;
 

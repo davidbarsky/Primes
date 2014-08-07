@@ -22,5 +22,6 @@
 @property (nonatomic, weak) Grid* gridReference;
 
 - (void)updateValueDisplay;
+- (void)highlightSelectedTile;
 
 @end

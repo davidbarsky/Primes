@@ -103,7 +103,11 @@ static const NSInteger GRID_SIZE = 6;
     float cellSize = self.contentSize.height/GRID_SIZE;
 
     NSValue *val = [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))];
-
+    
+    Tile *tileToHighlight = [self getTileAtPoint:val];
+    
+    [tileToHighlight highlightSelectedTile];
+    
     [_touchedTileSet addObject:val];
 }
 
@@ -112,6 +116,10 @@ static const NSInteger GRID_SIZE = 6;
     float cellSize = self.contentSize.height/GRID_SIZE;
     
     NSValue *val = [NSValue valueWithCGPoint:CGPointMake(floorf(touchInWorld.x/cellSize), floorf(touchInWorld.y/cellSize))];
+    
+    Tile *tileToHighlight = [self getTileAtPoint:val];
+    
+    [tileToHighlight highlightSelectedTile];
     
     [_touchedTileSet addObject:val];
 }
@@ -132,12 +140,7 @@ static const NSInteger GRID_SIZE = 6;
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         
-        CGPoint point = value.CGPointValue;
-        
-        NSInteger x = point.x;
-        NSInteger y = point.y;
-        
-        Tile *tempTile = _gridArray[x][y];
+        Tile *tempTile = [self getTileAtPoint:value];;
         
         currentSum += tempTile.value.intValue;
     }
@@ -198,6 +201,11 @@ static const NSInteger GRID_SIZE = 6;
 	[self addChild:tile];
 
 	tile.position = [self positionForColumn:column row:row];
+    
+    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    scaleAnimation.duration = 0.1;
+    scaleAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.95, 0.95)];
+    
 	CCActionDelay *delay = [CCActionDelay actionWithDuration:0.3f];
 	CCActionScaleTo *scaleUp = [CCActionScaleTo actionWithDuration:0.2f scale:1.f];
 	CCActionSequence *sequence = [CCActionSequence actionWithArray:@[delay, scaleUp]];
@@ -229,6 +237,20 @@ static const NSInteger GRID_SIZE = 6;
     NSNumber *newGoal = [_primes objectAtIndex:_roundNumber];
     self.goal = newGoal.intValue;
     self.roundMaxMoveCount = newGoal.intValue;
+}
+
+# pragma mark - Game Utility Helpers
+
+- (Tile*)getTileAtPoint:(NSValue*)value {
+    
+    CGPoint point = value.CGPointValue;
+    
+    NSInteger x = point.x;
+    NSInteger y = point.y;
+    
+    Tile *tempTile = _gridArray[x][y];
+    
+    return tempTile;
 }
 
 # pragma mark - End Game Conditions

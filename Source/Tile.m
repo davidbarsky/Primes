@@ -17,6 +17,7 @@
     [self updateValueDisplay];
 }
 
+// this is something that I'm not a fan of. seems unkosher.
 - (id)init {
     if (self = [super init]) {
         self.value = [NSNumber numberWithUnsignedInt:arc4random_uniform(9) + 1];
@@ -26,6 +27,10 @@
 
 - (void)updateValueDisplay {
     _valueLabel.string = [NSString stringWithFormat:@"%d", self.value.intValue];
+}
+
+- (void)highlightSelectedTile {
+    [_backgroundNode setColor:[CCColor colorWithRed:0.6f green:0.3f blue:0.4f alpha:1.0f ]];
 }
 
 @end
