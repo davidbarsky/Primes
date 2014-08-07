@@ -1001,9 +1001,9 @@
 						<key>value</key>
 						<array>
 							<real>0.0</real>
-							<real>0.25</real>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.69999998807907104</real>
+							<integer>1</integer>
+							<integer>2</integer>
 							<integer>2</integer>
 						</array>
 					</dict>
@@ -1029,6 +1029,8 @@
 						<string>Grid.ccb</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
