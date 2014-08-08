@@ -978,7 +978,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>CCBFile</string>
+				<string>Grid.ccb</string>
 				<key>memberVarAssignmentName</key>
 				<string>_grid</string>
 				<key>memberVarAssignmentType</key>

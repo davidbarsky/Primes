@@ -33,4 +33,8 @@
     [_backgroundNode setColor:[CCColor colorWithRed:0.6f green:0.3f blue:0.4f alpha:1.0f ]];
 }
 
+- (void)unhighlightSelectedTile {
+    [_backgroundNode setColor:[CCColor colorWithRed:0.77f green:0.28f blue:0.25f alpha:1.0f]];
+}
+
 @end

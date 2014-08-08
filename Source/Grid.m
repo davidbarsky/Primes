@@ -127,6 +127,12 @@ static const NSInteger GRID_SIZE = 6;
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if ([_touchedTileSet count] >= MIN_ACCEPTED_TILES) {
          [self addTileValues];
+    } else {
+        [_touchedTileSet removeAllObjects];
+        for (NSValue *val in _touchedTileSet) {
+            Tile *tileToUnhighlight = [self getTileAtPoint:val];
+            [tileToUnhighlight unhighlightSelectedTile];
+        }
     }
 }
 
@@ -151,11 +157,21 @@ static const NSInteger GRID_SIZE = 6;
         [self replaceTappedTiles];
     }
     
-    [self resetRoundVariables];
-    
     if (self.movesMadeThisRound == _roundMaxMoveCount) {
         [self nextRound];
+        [self resetRoundVariables];
+    } else {
+        [_touchedTileSet removeAllObjects];
+        for (NSValue *val in _touchedTileSet) {
+            Tile *tileToUnhighlight = [self getTileAtPoint:val];
+            [tileToUnhighlight unhighlightSelectedTile];
+        }
+        [self resetRoundVariables];
     }
+    
+    /*
+    [MainScene CurrentScoreLabel].label = (@" %i ", tile.value);
+    */
 }
 
 # pragma mark - Tile Manipulators

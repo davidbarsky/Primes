@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) CCLabelTTF *roundScoreLabel;
 @property (nonatomic, strong) CCLabelTTF *roundGoalLabel;
+@property (nonatomic, strong) CCLabelTTF *addingScoreLabel;
 
 @property (nonatomic, strong) CCLabelTTF *gameplayScoreLabel;
 

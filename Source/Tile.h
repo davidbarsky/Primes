@@ -23,5 +23,6 @@
 
 - (void)updateValueDisplay;
 - (void)highlightSelectedTile;
+- (void)unhighlightSelectedTile;
 
 @end
