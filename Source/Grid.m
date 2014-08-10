@@ -128,11 +128,11 @@ static const NSInteger GRID_SIZE = 6;
     if ([_touchedTileSet count] >= MIN_ACCEPTED_TILES) {
          [self addTileValues];
     } else {
-        [_touchedTileSet removeAllObjects];
         for (NSValue *val in _touchedTileSet) {
             Tile *tileToUnhighlight = [self getTileAtPoint:val];
             [tileToUnhighlight unhighlightSelectedTile];
         }
+        [_touchedTileSet removeAllObjects];
     }
 }
 
@@ -161,17 +161,13 @@ static const NSInteger GRID_SIZE = 6;
         [self nextRound];
         [self resetRoundVariables];
     } else {
-        [_touchedTileSet removeAllObjects];
         for (NSValue *val in _touchedTileSet) {
             Tile *tileToUnhighlight = [self getTileAtPoint:val];
             [tileToUnhighlight unhighlightSelectedTile];
         }
         [self resetRoundVariables];
+        [_touchedTileSet removeAllObjects];
     }
-    
-    /*
-    [MainScene CurrentScoreLabel].label = (@" %i ", tile.value);
-    */
 }
 
 # pragma mark - Tile Manipulators
@@ -234,7 +230,7 @@ static const NSInteger GRID_SIZE = 6;
 	return CGPointMake(x,y);
 }
 
-# pragma mark - Game Utility Handlers
+# pragma mark - Game Score/Round Handlers
 
 - (void)nextRound {
     [self removeTiles];
