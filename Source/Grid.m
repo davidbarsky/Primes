@@ -152,12 +152,17 @@ static const NSInteger GRID_SIZE = 6;
     }
     
     if (currentSum % self.goal == 0) {
-        self.score++;
-        self.movesMadeThisRound++;
+        if (currentSum / self.goal > 1) {
+            self.score = self.score + (currentSum / self.goal);
+            self.movesMadeThisRound = self.movesMadeThisRound + (currentSum / self.goal);
+        } else {
+            self.score++;
+            self.movesMadeThisRound++;
+        }
         [self replaceTappedTiles];
     }
     
-    if (self.movesMadeThisRound == _roundMaxMoveCount) {
+    if (self.movesMadeThisRound >= _roundMaxMoveCount) {
         [self nextRound];
         [self resetRoundVariables];
     } else {
