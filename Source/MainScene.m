@@ -13,6 +13,11 @@
 	Grid *_grid;
 }
 
+- (void)play {
+    CCScene *gameplayScene = [CCBReader loadAsScene:@"Gameplay"];
+    [[CCDirector sharedDirector] replaceScene:gameplayScene];
+}
+
 - (void)didLoadFromCCB {
     [_grid addObserver:self forKeyPath:@"goal" options:0 context:NULL];
     _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
