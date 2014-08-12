@@ -111,7 +111,6 @@ static const NSInteger GRID_SIZE = 6;
     [tileToHighlight highlightSelectedTile];
     
     [_touchedTileSet addObject:val];
-    [self liveCurrentScoreCounter];
 }
 
 - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -125,7 +124,6 @@ static const NSInteger GRID_SIZE = 6;
     [tileToHighlight highlightSelectedTile];
     
     [_touchedTileSet addObject:val];
-    [self liveCurrentScoreCounter];
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
