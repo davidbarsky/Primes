@@ -24,6 +24,9 @@
     
     [_grid addObserver:self forKeyPath:@"movesMadeThisRound" options:0 context:NULL];
     _roundScoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.movesMadeThisRound];
+    
+    [_grid addObserver:self forKeyPath:@"currentSum" options:0 context:NULL];
+    _currentScoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.currentSum];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -34,11 +37,16 @@
     if ([keyPath isEqualToString:@"movesMadeThisRound"]) {
         _roundScoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.movesMadeThisRound];
     }
+    
+    if ([keyPath isEqualToString:@"currentSum"]) {
+        _currentScoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.currentSum];
+    }
 }
 
 - (void)dealloc {
     [_grid removeObserver:self forKeyPath:@"score"];
     [_grid removeObserver:self forKeyPath:@"movesMadeThisRound"];
+    [_grid removeObserver:self forKeyPath:@"currentSum"];
 }
 
 @end

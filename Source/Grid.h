@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine; // values that need to be combined
 
+@property (nonatomic, assign) NSInteger currentSum;
+
 @property (nonatomic, assign) NSInteger roundNumber; // used to access array
 @property (nonatomic, assign) NSInteger roundMaxMoveCount; // assigned each round to 
 

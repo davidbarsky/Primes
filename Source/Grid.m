@@ -80,6 +80,8 @@ static const NSInteger GRID_SIZE = 6;
     _tileMarginHorizontal = (self.contentSize.width - (GRID_SIZE * _columnWidth)) / (GRID_SIZE+1);
     _tileMarginVertical = (self.contentSize.height - (GRID_SIZE * _columnHeight)) / (GRID_SIZE+1);
     
+    _currentSum = 0;
+    
 	float x = _tileMarginHorizontal;
 	float y = _tileMarginVertical;
 
@@ -109,6 +111,7 @@ static const NSInteger GRID_SIZE = 6;
     [tileToHighlight highlightSelectedTile];
     
     [_touchedTileSet addObject:val];
+    [self liveCurrentScoreCounter];
 }
 
 - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -122,6 +125,7 @@ static const NSInteger GRID_SIZE = 6;
     [tileToHighlight highlightSelectedTile];
     
     [_touchedTileSet addObject:val];
+    [self liveCurrentScoreCounter];
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -138,23 +142,36 @@ static const NSInteger GRID_SIZE = 6;
 
 # pragma mark - Calculation
 
-- (void)addTileValues {
+- (void)liveCurrentScoreCounter {
     for (NSValue *val in _touchedTileSet) {
         [_tileValuesToCombine addObject:val];
     }
-    NSInteger currentSum = 0;
     for (int i = 0; i < [_tileValuesToCombine count]; i++) {
         NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
         
         Tile *tempTile = [self getTileAtPoint:value];;
         
-        currentSum += tempTile.value.intValue;
+        _currentSum += tempTile.value.intValue;
+    }
+}
+
+- (void)addTileValues {
+    for (NSValue *val in _touchedTileSet) {
+        [_tileValuesToCombine addObject:val];
+    }
+    _currentSum = 0;
+    for (int i = 0; i < [_tileValuesToCombine count]; i++) {
+        NSNumber *value = [_tileValuesToCombine objectAtIndex:i];
+    
+        Tile *tempTile = [self getTileAtPoint:value];;
+        
+        _currentSum += tempTile.value.intValue;
     }
     
-    if (currentSum % self.goal == 0) {
-        if (currentSum / self.goal > 1) {
-            self.score = self.score + (currentSum / self.goal);
-            self.movesMadeThisRound = self.movesMadeThisRound + (currentSum / self.goal);
+    if (_currentSum % self.goal == 0) {
+        if (_currentSum / self.goal > 1) {
+            self.score = self.score + (_currentSum / self.goal);
+            self.movesMadeThisRound = self.movesMadeThisRound + (_currentSum / self.goal);
         } else {
             self.score++;
             self.movesMadeThisRound++;
