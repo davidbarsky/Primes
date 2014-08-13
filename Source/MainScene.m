@@ -18,6 +18,11 @@
     [[CCDirector sharedDirector] replaceScene:gameplayScene];
 }
 
+- (void)endGame {
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainScene];
+}
+
 - (void)didLoadFromCCB {
     [_grid addObserver:self forKeyPath:@"goal" options:0 context:NULL];
     _roundGoalLabel.string = [NSString stringWithFormat:@"%ld", (long)_grid.goal];
@@ -44,7 +49,7 @@
 }
 
 - (void)dealloc {
-    [_grid removeObserver:self forKeyPath:@"score"];
+    [_grid removeObserver:self forKeyPath:@"goal"];
     [_grid removeObserver:self forKeyPath:@"movesMadeThisRound"];
     [_grid removeObserver:self forKeyPath:@"currentSum"];
 }

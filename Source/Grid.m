@@ -52,11 +52,11 @@ static const NSInteger GRID_SIZE = 6;
 			_gridArray[i][j] = _noTile;
 		}
 	}
-    [self intialiazeGameVariables];
+    [self initGameVariables];
     [self spawnTiles];
 }
 
-- (void)intialiazeGameVariables {
+- (void)initGameVariables {
     _roundNumber = 0;
     _movesMadeThisRound = 0;
     
