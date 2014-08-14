@@ -234,10 +234,6 @@ static const NSInteger GRID_SIZE = 6;
 
 	tile.position = [self positionForColumn:column row:row];
     
-    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    scaleAnimation.duration = 0.1;
-    scaleAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.95, 0.95)];
-    
 	CCActionDelay *delay = [CCActionDelay actionWithDuration:0.3f];
 	CCActionScaleTo *scaleUp = [CCActionScaleTo actionWithDuration:0.2f scale:1.f];
 	CCActionSequence *sequence = [CCActionSequence actionWithArray:@[delay, scaleUp]];
@@ -253,6 +249,7 @@ static const NSInteger GRID_SIZE = 6;
 # pragma mark - Game Score/Round Handlers
 
 - (void)nextRound {
+    [self setupBackground];
     [self removeTiles];
     [self spawnTiles];
     _roundNumber++;
