@@ -17,12 +17,17 @@
     [self updateValueDisplay];
 }
 
-// this is something that I'm not a fan of. seems unkosher.
 - (id)init {
     if (self = [super init]) {
-        self.value = [NSNumber numberWithUnsignedInt:arc4random_uniform(9) + 1];
+        self.value = [NSNumber numberWithInteger:[self makeTileValueProportionaltoGoal:5]];
     }
     return self;
+}
+
+- (NSInteger)makeTileValueProportionaltoGoal:(NSInteger)goal {
+    NSInteger proportionalTileValue = [NSNumber numberWithUnsignedInt:arc4random_uniform(goal) + 1].integerValue;
+    
+    return proportionalTileValue;
 }
 
 - (void)updateValueDisplay {

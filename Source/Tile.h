@@ -11,8 +11,6 @@
 
 @interface Tile : CCNode
 
-// to access *value, use 'self.value.intValue'
-// value is being used to access
 @property (nonatomic, strong) NSNumber* value;
 
 @property (nonatomic, assign) BOOL mergedThisRound;
@@ -21,6 +19,7 @@
 
 @property (nonatomic, weak) Grid* gridReference;
 
+- (NSInteger)makeTileValueProportionaltoGoal:(NSInteger)goal;
 - (void)updateValueDisplay;
 - (void)highlightSelectedTile;
 - (void)unhighlightSelectedTile;

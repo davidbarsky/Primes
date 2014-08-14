@@ -80,8 +80,6 @@ static const NSInteger GRID_SIZE = 6;
     _tileMarginHorizontal = (self.contentSize.width - (GRID_SIZE * _columnWidth)) / (GRID_SIZE+1);
     _tileMarginVertical = (self.contentSize.height - (GRID_SIZE * _columnHeight)) / (GRID_SIZE+1);
     
-    _currentSum = 0;
-    
 	float x = _tileMarginHorizontal;
 	float y = _tileMarginVertical;
 
@@ -91,6 +89,7 @@ static const NSInteger GRID_SIZE = 6;
 			CCNodeColor *backgroundTile = [CCNodeColor nodeWithColor:[CCColor grayColor]];
 			backgroundTile.contentSize = CGSizeMake(_columnWidth, _columnHeight);
 			backgroundTile.position = ccp(x, y);
+            
 			[self addChild:backgroundTile];
 			x+= _columnWidth + _tileMarginHorizontal;
 		}
@@ -230,6 +229,7 @@ static const NSInteger GRID_SIZE = 6;
 	tile.scale = 0.f;
     CGPoint tileLocationInArray = CGPointMake(column, row);
     [tile setTileLocation:tileLocationInArray];
+    [tile makeTileValueProportionaltoGoal:_goal];
 	[self addChild:tile];
 
 	tile.position = [self positionForColumn:column row:row];
