@@ -236,7 +236,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>ccbResources/KlinicSlabBook.ttf</string>
+						<string>HelveticaNeue-Light</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -443,7 +443,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>ccbResources/KlinicSlabBook.ttf</string>
+						<string>HelveticaNeue-Light</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -569,6 +569,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -650,7 +652,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>ccbResources/KlinicSlabBook.ttf</string>
+						<string>HelveticaNeue-Light</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -776,8 +778,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -859,7 +859,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>ccbResources/KlinicSlabBook.ttf</string>
+						<string>HelveticaNeue-Light</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1472,7 +1472,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string></string>
 						</array>
 					</dict>
 					<dict>
@@ -1496,7 +1496,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string></string>
 						</array>
 					</dict>
 					<dict>
@@ -1515,7 +1515,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string></string>
 						</array>
 					</dict>
 					<dict>

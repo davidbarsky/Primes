@@ -16,11 +16,6 @@
 - (void)play {
     CCScene *gameplayScene = [CCBReader loadAsScene:@"Gameplay"];
     [[CCDirector sharedDirector] replaceScene:gameplayScene];
-    [_movesLabel setFontName:@"Avenir"];
-    [_goalsLabel setFontName:@"Avenir"];
-    [_roundGoalLabel setFontName:@"Avenir"];
-    [_roundScoreLabel setFontName:@"Avenir"];
-    [_currentScoreLabel setFontName:@"Avenir"];
 }
 
 - (void)endGame {
