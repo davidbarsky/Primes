@@ -23,20 +23,8 @@
 - (id)init {
     if (self = [super init]) {
         self.value = [NSNumber numberWithInteger:[self makeTileValueProportionaltoGoal:5]];
-        _timerRunning = NO;
     }
     return self;
-}
-
-- (void)animateTile {
-    POPSpringAnimation *tileAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];
-    
-    tileAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(40, 40)];
-    tileAnimation.springBounciness = 10.0;
-    tileAnimation.springSpeed = 10.0;
-    
-    //Add it to the target to play the animation for a unique key
-    [self pop_addAnimation:tileAnimation forKey:@"tile"];
 }
 
 - (NSInteger)makeTileValueProportionaltoGoal:(NSInteger)goal {
@@ -51,7 +39,6 @@
 
 - (void)highlightSelectedTile {
     [_backgroundNode setColor:[CCColor colorWithRed:0.6f green:0.3f blue:0.4f alpha:1.0f ]];
-//    [self animateTile];
 }
 
 - (void)unhighlightSelectedTile {

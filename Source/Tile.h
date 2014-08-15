@@ -8,7 +8,6 @@
 
 #import "CCNode.h"
 #import "Grid.h"
-#import <POP/POP.h>
 
 @interface Tile : CCNode
 
@@ -24,6 +23,5 @@
 - (void)updateValueDisplay;
 - (void)highlightSelectedTile;
 - (void)unhighlightSelectedTile;
-- (void)animateTile;
 
 @end
