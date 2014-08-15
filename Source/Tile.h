@@ -8,6 +8,7 @@
 
 #import "CCNode.h"
 #import "Grid.h"
+#import <POP/POP.h>
 
 @interface Tile : CCNode
 
