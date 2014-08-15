@@ -35,6 +35,7 @@
 
 - (void)updateValueDisplay {
     _valueLabel.string = [NSString stringWithFormat:@"%d", self.value.intValue];
+    [_valueLabel setFontName:@"Avenir Next"];
 }
 
 - (void)highlightSelectedTile {
