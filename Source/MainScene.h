@@ -14,4 +14,7 @@
 @property (nonatomic, strong) CCLabelTTF *roundGoalLabel;
 @property (nonatomic, strong) CCLabelTTF *currentScoreLabel;
 
+@property (nonatomic, strong) CCLabelTTF *movesLabel;
+@property (nonatomic, strong) CCLabelTTF *goalsLabel;
+
 @end

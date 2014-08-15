@@ -124,9 +124,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.086274512112140656</real>
-							<real>0.094117648899555206</real>
-							<real>0.14509804546833038</real>
+							<real>0.18431372940540314</real>
+							<real>0.19607843458652496</real>
+							<real>0.26274511218070984</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -137,9 +137,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.086274512112140656</real>
-							<real>0.094117648899555206</real>
-							<real>0.14509804546833038</real>
+							<real>0.18431372940540314</real>
+							<real>0.19607843458652496</real>
+							<real>0.26274511218070984</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -168,7 +168,7 @@
 				<key>displayName</key>
 				<string>movesLabel</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_movesLabel</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -362,6 +362,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -582,7 +584,7 @@
 				<key>displayName</key>
 				<string>goalLabel</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_goalLabel</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -1413,8 +1415,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
-							<real>40</real>
+							<real>160</real>
+							<real>57</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1447,7 +1449,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>End Game</string>
+							<string></string>
 							<false/>
 						</array>
 					</dict>
@@ -1459,7 +1461,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>ccbResources/End.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1657,8 +1659,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
