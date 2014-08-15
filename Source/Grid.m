@@ -211,8 +211,8 @@ static const NSInteger GRID_SIZE = 6;
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
         
-        NSInteger x = p.x;
-        NSInteger y = p.y;
+        NSInteger x = clampf(p.x, 0, _gridArray.count - 1);
+        NSInteger y = clampf(p.y, 0, _gridArray.count - 1);
         
         Tile *tileToRemove = _gridArray[x][y];
         _gridArray[x][y] = _noTile;
@@ -274,8 +274,8 @@ static const NSInteger GRID_SIZE = 6;
     
     CGPoint point = value.CGPointValue;
     
-    NSInteger x = point.x;
-    NSInteger y = point.y;
+    NSInteger x = clampf(point.x, 0, _gridArray.count - 1);
+    NSInteger y = clampf(point.y, 0, _gridArray.count - 1);
     
     Tile *tempTile = _gridArray[x][y];
     
