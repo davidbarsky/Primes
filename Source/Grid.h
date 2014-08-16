@@ -16,6 +16,8 @@
 @property (nonatomic, assign) NSInteger score; // your total score.
 @property (nonatomic, assign) NSInteger movesMadeThisRound; // should reset each round
 
+@property (nonatomic, assign) NSInteger liveScoreCount;
+
 @property (nonatomic, strong) NSMutableArray *tileValuesToCombine; // values that need to be combined
 
 @property (nonatomic, assign) NSInteger currentSum;

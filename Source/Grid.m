@@ -148,7 +148,7 @@ static const NSInteger GRID_SIZE = 6;
         
         Tile *tempTile = [self getTileAtPoint:value];;
         
-        _currentSum += tempTile.value.intValue;
+        _liveScoreCount += tempTile.value.intValue;
     }
 }
 
@@ -255,6 +255,7 @@ static const NSInteger GRID_SIZE = 6;
     _roundNumber++;
     [self increaseGoalFromPrimesArray];
     _movesMadeThisRound = 0;
+    _liveScoreCount = 0;
 }
 
 - (void)resetRoundVariables {
