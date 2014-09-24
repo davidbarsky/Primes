@@ -207,6 +207,7 @@ static const NSInteger GRID_SIZE = 6;
     }
 }
 
+
 - (void)replaceTappedTiles {
     for (NSValue *val in _touchedTileSet) {
         CGPoint p = [val CGPointValue];
